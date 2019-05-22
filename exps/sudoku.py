@@ -18,7 +18,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 from torch.utils.data import TensorDataset, DataLoader
-from tqdm import tqdm
+from tqdm.auto import tqdm
 
 import satnet
 
