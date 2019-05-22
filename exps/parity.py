@@ -39,6 +39,7 @@ def main():
     parser.add_argument('--m', type=int, default=4)
     parser.add_argument('--aux', type=int, default=4)
     parser.add_argument('--no_cuda', action='store_true')
+    parser.add_argument('--adam', action='store_true')
 
     args = parser.parse_args()
 
@@ -88,7 +89,10 @@ def main():
     model = satnet.SATNet(3, args.m, args.aux, prox_lam=1e-1)
     if args.cuda: model = model.cuda()
 
-    optimizer = optim.Adam(model.parameters(), lr=args.lr)
+    if args.adam:
+        optimizer = optim.Adam(model.parameters(), lr=args.lr)
+    else:
+        optimizer = optim.SGD(model.parameters(), lr=args.lr)
 
     train_logger = CSVLogger(os.path.join(save, 'train.csv'))
     test_logger = CSVLogger(os.path.join(save, 'test.csv'))
