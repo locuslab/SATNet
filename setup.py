@@ -34,8 +34,6 @@ if torch.cuda.is_available() and CUDA_HOME is not None:
             'src/satnet.cpp',
             'src/satnet_cuda.cu',
         ],
-        #libraries = ['make_pytorch'],
-        #library_dirs = ['objs'],
         extra_compile_args = {
             'cxx': ['-DMIX_USE_GPU', '-g'],
             'nvcc': ['-g', '-restrict', '-maxrregcount', '32', '-lineinfo', '-Xptxas=-v']
@@ -43,20 +41,25 @@ if torch.cuda.is_available() and CUDA_HOME is not None:
     )
     ext_modules.append(extension)
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
 
 # Python interface
 setup(
     name='satnet',
     version='0.1.0',
-    install_requires=['torch'],
-    #packages=['MakePytorchPlusPlus'],
-    #package_dir={'MakePytorchPlusPlus': './'},
+    install_requires=['torch>=1.0'],
+    packages=['satnet'],
     ext_modules=ext_modules,
     cmdclass={'build_ext': BuildExtension},
-    #author='Po-Wei Wang',
-    #author_email='poweiw@cs.cmu.edu',
-    #description='Tutorial for Pytorch C++ Extension with a Makefile',
-    #keywords='Pytorch C++ Extension',
-    #url='https://github.com/chrischoy/MakePytorchPlusPlus',
+    author='Po-Wei Wang',
+    author_email='poweiw@cs.cmu.edu',
+    url='https://github.com/locuslab/SATNet',
     zip_safe=False,
+    description='Bridging deep learning and logical reasoning using a differentiable satisfiability solver',
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    classifiers=[
+        "License :: OSI Approved :: MIT License",
+    ],
 )
