@@ -41,7 +41,7 @@ if torch.cuda.is_available() and CUDA_HOME is not None:
     )
     ext_modules.append(extension)
 
-with open("README.md", "r") as fh:
+with open("README.md", "r", encoding='utf-8') as fh:
     long_description = fh.read()
 
 # Python interface
@@ -57,8 +57,8 @@ setup(
     url='https://github.com/locuslab/SATNet',
     zip_safe=False,
     description='Bridging deep learning and logical reasoning using a differentiable satisfiability solver',
-    long_description=long_description,
-    long_description_content_type="text/markdown",
+    #long_description=long_description,
+    #long_description_content_type="text/markdown",
     classifiers=[
         "License :: OSI Approved :: MIT License",
     ],
