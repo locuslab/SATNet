@@ -7,7 +7,7 @@
 [pypi]: https://pypi.python.org/pypi/satnet
 
 [colab-image]: https://colab.research.google.com/assets/colab-badge.svg
-[colab]: https://colab.research.google.com/
+[colab]: https://colab.research.google.com/drive/1dRfepPLEE8N6BBZhXz8bbLDcPnRKaOcJ
 
 *Bridging deep learning and logical reasoning using a differentiable satisfiability solver.*
 
