@@ -65,7 +65,7 @@ sh ./run.sh
 ## Running experiments
 ### Jupyter Notebook and Google Colab
 [Jupyter notebook](https://github.com/locuslab/SATNet/blob/master/notebooks/Learning%20and%20Solving%20Sudoku%20via%20SATNet.ipynb)
-and [Google Colab]()
+and [Google Colab](https://colab.research.google.com/drive/1dRfepPLEE8N6BBZhXz8bbLDcPnRKaOcJ#forceEdit=true&offline=true&sandboxMode=true)
 
 ### Run them manually
 
