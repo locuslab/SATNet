@@ -11,7 +11,7 @@
 
 *Bridging deep learning and logical reasoning using a differentiable satisfiability solver.*
 
-This repository contains the source code to reproduce the experiments in the ICML 2019 paper [SATNet: Bridging deep learning and logical reasoning using a differentiable satisfiability solver](https://icml.cc/Conferences/2019/Schedule?showEvent=3947) by [Po-Wei Wang](https://powei.tw/), [Priya L. Donti](https://priyadonti.com/), [Bryan Wilder](http://teamcore.usc.edu/people/bryanwilder/default.htm), and [J. Zico Kolter](http://zicokolter.com/).
+This repository contains the source code to reproduce the experiments in the ICML 2019 paper [SATNet: Bridging deep learning and logical reasoning using a differentiable satisfiability solver](https://arxiv.org/abs/1905.12149) by [Po-Wei Wang](https://powei.tw/), [Priya L. Donti](https://priyadonti.com/), [Bryan Wilder](http://teamcore.usc.edu/people/bryanwilder/default.htm), and [J. Zico Kolter](http://zicokolter.com/).
 
 
 ## What is SATNet
@@ -22,7 +22,7 @@ SATNet is a differentiable (smoothed) maximum satisfiability (MAXSAT) solver tha
 
 A SATNet layer takes as input the discrete or probabilistic assignments of known MAXSAT variables, and outputs guesses for the assignments of unknown variables via a MAXSAT SDP relaxation with weights *S*. A schematic depicting the forward pass of this layer is shown below. To obtain the backward pass, we analytically differentiate through the SDP relaxation (see the paper for more details).
 
-![Forward pass](images/forward_pass.png)
+![Forward pass](images/poster_forward.png)
 
 #### Overview of experiments
 
