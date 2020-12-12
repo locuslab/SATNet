@@ -27,42 +27,46 @@
 
 #include "satnet.h"
 
+using Tensor=torch::Tensor;
+float *fptr(Tensor& a) { return a.data_ptr<float>(); }
+int   *iptr(Tensor& a) { return a.data_ptr<int>(); }
+
 void _MIX_FUNC(mix_init_launcher)    (mix_t mix, int32_t *perm             _MIX_CUDA_DECL);
 void _MIX_FUNC(mix_forward_launcher) (mix_t mix, int max_iter, float eps   _MIX_CUDA_DECL);
 void _MIX_FUNC(mix_backward_launcher)(mix_t mix, float prox_lam            _MIX_CUDA_DECL);
 
-void mix_init(at::Tensor perm,
-        at::Tensor is_input, at::Tensor index, at::Tensor z, at::Tensor V)
+void mix_init(Tensor perm,
+        Tensor is_input, Tensor index, Tensor z, Tensor V)
 {
 	_MIX_CUDA_HEAD;
 
     mix_t mix;
     mix.b = V.size(0); mix.n = V.size(1); mix.k = V.size(2);
-    mix.is_input = is_input.data<int>();
-    mix.index = index.data<int>();
-    mix.z = z.data<float>();
-    mix.V = V.data<float>();
+    mix.is_input = iptr(is_input);
+    mix.index = iptr(index);
+    mix.z = fptr(z);
+    mix.V = fptr(V);
     
-    _MIX_FUNC(mix_init_launcher)(mix, perm.data<int>() _MIX_CUDA_ARG);
+    _MIX_FUNC(mix_init_launcher)(mix, iptr(perm) _MIX_CUDA_ARG);
 
 	_MIX_CUDA_TAIL;
 }
 
 void mix_forward(int max_iter, float eps,
-        at::Tensor index, at::Tensor niter, at::Tensor S, at::Tensor z, at::Tensor V, at::Tensor W, at::Tensor gnrm, at::Tensor Snrms, at::Tensor cache)
+        Tensor index, Tensor niter, Tensor S, Tensor z, Tensor V, Tensor W, Tensor gnrm, Tensor Snrms, Tensor cache)
 {
 	_MIX_CUDA_HEAD;
 
     mix_t mix;
     mix.b = V.size(0); mix.n = V.size(1); mix.m = S.size(1); mix.k = V.size(2);
-    mix.index = index.data<int>();
-    mix.niter = niter.data<int>();
-    mix.S = S.data<float>();
-    mix.z = z.data<float>();
-    mix.V = V.data<float>();
-    mix.W = W.data<float>();
-    mix.gnrm = gnrm.data<float>(); mix.Snrms = Snrms.data<float>();
-    mix.cache = cache.data<float>();
+    mix.index = iptr(index);
+    mix.niter = iptr(niter);
+    mix.S = fptr(S);
+    mix.z = fptr(z);
+    mix.V = fptr(V);
+    mix.W = fptr(W);
+    mix.gnrm = fptr(gnrm); mix.Snrms = fptr(Snrms);
+    mix.cache = fptr(cache);
 
     _MIX_FUNC(mix_forward_launcher)(mix, max_iter, eps _MIX_CUDA_ARG);
 
@@ -70,22 +74,22 @@ void mix_forward(int max_iter, float eps,
 }
 
 void mix_backward(float prox_lam,
-        at::Tensor is_input, at::Tensor index, at::Tensor niter, at::Tensor S, at::Tensor dS, at::Tensor z, at::Tensor dz,
-        at::Tensor V, at::Tensor U, at::Tensor W, at::Tensor Phi, at::Tensor gnrm, at::Tensor Snrms, at::Tensor cache)
+        Tensor is_input, Tensor index, Tensor niter, Tensor S, Tensor dS, Tensor z, Tensor dz,
+        Tensor V, Tensor U, Tensor W, Tensor Phi, Tensor gnrm, Tensor Snrms, Tensor cache)
 {
 	_MIX_CUDA_HEAD;
 
     mix_t mix;
     mix.b = V.size(0); mix.n = V.size(1); mix.m = S.size(1); mix.k = V.size(2);
-    mix.is_input = is_input.data<int>();
-    mix.index = index.data<int>();
-    mix.niter = niter.data<int>();
-    mix.S = S.data<float>(); mix.dS = dS.data<float>();
-    mix.z = z.data<float>(); mix.dz = dz.data<float>();
-    mix.V = V.data<float>(); mix.U = U.data<float>();
-    mix.W = W.data<float>(); mix.Phi = Phi.data<float>();
-    mix.gnrm = gnrm.data<float>(); mix.Snrms = Snrms.data<float>();
-    mix.cache = cache.data<float>();
+    mix.is_input = iptr(is_input);
+    mix.index = iptr(index);
+    mix.niter = iptr(niter);
+    mix.S = fptr(S); mix.dS = fptr(dS);
+    mix.z = fptr(z); mix.dz = fptr(dz);
+    mix.V = fptr(V); mix.U = fptr(U);
+    mix.W = fptr(W); mix.Phi = fptr(Phi);
+    mix.gnrm = fptr(gnrm); mix.Snrms = fptr(Snrms);
+    mix.cache = fptr(cache);
 
     _MIX_FUNC(mix_backward_launcher)(mix, prox_lam _MIX_CUDA_ARG);
 

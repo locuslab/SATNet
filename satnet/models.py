@@ -145,6 +145,9 @@ class SATNet(nn.Module):
     def forward(self, z, is_input):
         B = z.size(0)
         device = 'cuda' if self.S.is_cuda else 'cpu'
+        m = self.S.shape[1]
+        if device == 'cpu' and m%4 != 0:
+            raise ValueError('m is required to be a multiple of 4 on CPU for SSE acceleration. Now '+str(m))
         is_input = insert_constants(is_input.data, 1, 1, 0, self.aux)
         z = torch.cat([torch.ones(z.size(0),1,device=device), z, torch.zeros(z.size(0),self.aux,device=device)],dim=1)
 

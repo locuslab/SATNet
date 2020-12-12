@@ -286,7 +286,7 @@ def computeErr(pred_flat, n, unperm):
         valid = (x.min(1)[0] == 0)
         valid *= (x.max(1)[0] == nsq-1)
         valid *= (x.sum(1) == s)
-        return 1-valid
+        return valid.bitwise_not()
 
     boardCorrect = torch.ones(batchSz).type_as(pred)
     for j in range(nsq):
