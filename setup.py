@@ -47,8 +47,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 # Python interface
 setup(
     name='satnet',
-    version='0.1.2',
-    install_requires=['torch>=1.0'],
+    version='0.1.3',
+    install_requires=['torch>=1.3'],
     packages=['satnet'],
     ext_modules=ext_modules,
     cmdclass={'build_ext': BuildExtension},

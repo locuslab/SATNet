@@ -53,6 +53,11 @@ cd SATNet && python setup.py install
 ```
 conda install -c pytorch tqdm
 ```
+The package also depends on the nvcc compiler. If it doesn't exist (try nvcc from commandline), you can install it via
+```
+conda install -c conda-forge cudatoolkit-dev
+```
+
 
 
 ### Via Docker image
