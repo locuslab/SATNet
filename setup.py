@@ -36,7 +36,7 @@ if torch.cuda.is_available() and CUDA_HOME is not None:
         ],
         extra_compile_args = {
             'cxx': ['-DMIX_USE_GPU', '-g'],
-            'nvcc': ['-g', '-restrict', '-lineinfo', '-Xptxas=-v']
+            'nvcc': ['-g', '-restrict', '-maxrregcount', '32', '-lineinfo', '-Xptxas=-v']
         }
     )
     ext_modules.append(extension)
