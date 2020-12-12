@@ -191,7 +191,7 @@ void mix_backward(float prox_lam, int n, int m, int k, int32_t *is_input, int32_
         if (isnan(dzi) || isinf(dzi) || gnrm[i] < MEPS) invalid_flag = 1;
         dz[i] = dzi;
     }
-    if (invalid_flag) { szero(dz, n); fprintf(stderr, "invalid on input\n"); return; }
+    if (invalid_flag) { szero(dz, n); return; }
 
     // solve P (S'S+D_z-D_sii)xI_k P U = -dz P v0
     for (int iter=0; iter<*niter; iter++) {
@@ -202,7 +202,7 @@ void mix_backward(float prox_lam, int n, int m, int k, int32_t *is_input, int32_
     for (int ik=0; ik<n*k; ik++) {
         if (isnan(U[ik]) || isinf(U[ik])) invalid_flag = 1;
     }
-    if (invalid_flag) { szero(dz, n); fprintf(stderr, "invalid after\n"); return; }
+    if (invalid_flag) { szero(dz, n); return; }
 
     // dS = U W + V Phi
     for (int i=0; i<n; i++) {
