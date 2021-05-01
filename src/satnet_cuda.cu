@@ -241,8 +241,8 @@ __global__ void mix_backward(float prox_lam, int n, int m, int k, int32_t *is_in
         for (int kk=warp; kk<k; kk+=WARP_NUM) {
             float val = warpdot(S+i*m, Phi+kk*m, m);
             __syncwarp();
-            if (lane == 0) val1 = val;
-            if (lane == 1) val2 = val;
+            if (kk == 0) val1 = val;
+            if (kk == 1) val2 = val;
             __syncwarp();
         }
         __syncthreads();
