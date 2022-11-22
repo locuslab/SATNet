@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:1.7.0-cuda11.0-cudnn8-devel
+FROM pytorch/pytorch:1.13.0-cuda11.6-cudnn8-devel
 RUN pip install setproctitle
 
 ARG USER_ID
